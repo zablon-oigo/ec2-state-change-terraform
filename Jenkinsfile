@@ -11,7 +11,7 @@ pipeline{
                 deleteDir()
 
                 git branch: 'main',
-                    url: ''
+                    url: 'https://github.com/zablon-oigo/ec2-state-change-terraform.git'
 
                 sh "ls -lart"
             }
