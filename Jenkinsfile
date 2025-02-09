@@ -17,4 +17,13 @@ pipeline{
             }
         }
 }
+stage('Terraform Init') {
+    steps {
+        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails']]){
+            sh 'echo "=================Terraform Init=================="'
+            sh 'terraform init'
+        }
+    }
+}
+
 }
