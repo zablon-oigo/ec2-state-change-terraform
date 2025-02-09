@@ -25,5 +25,40 @@ stage('Terraform Init') {
         }
     }
 }
-
+stage('Terraform Plan') {
+    steps {
+        script {
+            if (params.PLAN_TERRAFORM) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails']]){
+                    sh 'echo "=================Terraform Plan=================="'
+                    sh 'terraform plan'
+                }
+            }
+        }
+    }
+}
+stage('Terraform Apply') {
+    steps {
+        script {
+            if (params.APPLY_TERRAFORM) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails']]){
+                    sh 'echo "=================Terraform Apply=================="'
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+    }
+}
+stage('Terraform Destroy') {
+    steps {
+        script {
+            if (params.DESTROY_TERRAFORM) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails']]){
+                    sh 'echo "=================Terraform Destroy=================="'
+                    sh 'terraform destroy -auto-approve'
+                }
+            }
+        }
+    }
+}
 }
